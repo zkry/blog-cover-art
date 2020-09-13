@@ -89,7 +89,7 @@
      :edges edges}))
 
 (defn setup []
-  (q/frame-rate 60)
+  (q/frame-rate 30)
   (let [rows 4
         cols 8
         make-key (fn [a b id] (str a "-" b "-" id))
@@ -171,14 +171,18 @@
   (q/fill 0 0 0)
   (apply q/fill (:sapphire palete))
   (apply q/stroke (:sapphire palete))
-  (doseq [{:keys [a b]} (:edges state)]
+  (doseq [{:keys [a b len]} (:edges state)]
     (let [pt1 (get (:nodes state) a)
           pt2 (get (:nodes state) b)]
       (when (and pt1 pt2)
-        (q/line (:x pt1) (:y pt1) (:x pt2) (:y pt2)))))
+        (let [stretch (Math/abs (- len (pt-dist pt1 pt2)))
+              [r g b] (:sapphire palete)]
+          (q/stroke (+ r (* stretch 10)) (- g (* stretch 2)) (- b (* stretch 10)))
+          (q/line (:x pt1) (:y pt1) (:x pt2) (:y pt2))))))
   (q/no-stroke)
   (doseq [[id {:keys [x y]}] (:nodes state)]
-    (q/ellipse x y 4 4)))
+    (q/ellipse x y 4 4))
+  (apply q/stroke (:sapphire palete)))
 
 ; this function is called in index.html
 (defn ^:export run-sketch []
