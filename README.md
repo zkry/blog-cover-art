@@ -1,5 +1,3 @@
-# blog-sketch
-
 ![My Blog Sketch](/illustration.png?raw=true)
 
 This repository contains the art for my blogs home page. I made this design using [Quil](http://www.quil.info/). You can interact with it on my [blog] (https://zacromero.io/)

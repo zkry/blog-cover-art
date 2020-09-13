@@ -161,7 +161,6 @@
 
 (defn update-state [{:keys [edges nodes] :as state}]
   ;; Update sketch state by changing circle color and position.
-  (js/console.log (pr-str edges))
   (let [new-nodes (map (partial graph-move edges nodes) nodes)]
     {:nodes (into {} new-nodes)
      :edges edges}))
