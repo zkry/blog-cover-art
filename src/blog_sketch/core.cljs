@@ -123,13 +123,20 @@
 (defn dampen [v] (* v 0.05))
 
 (defn mouse-force [pt]
-  (let [[mx my] [(q/mouse-x) (q/mouse-y)]
-        [x y] pt
-        dist (pt-dist {:x x :y y} {:x mx :y my})
-        str (/ (- 1 (/ 50 dist)) -30)]
-    (if (< dist 50)
-      [(* (- x mx) str) (* (- y my) str)]
-      [0 0])))
+  (if (q/mouse-pressed?)
+    (let [dir (if (= (q/mouse-button) :left) 1 -1)
+          [mx my] [(q/mouse-x) (q/mouse-y)]
+          [x y] pt
+          dist (pt-dist {:x x :y y} {:x mx :y my})
+          str (* (/ (- 1 (/ 800 dist)) 1000) dir)]
+      [(* (- x mx) str) (* (- y my) str)])
+    (let [[mx my] [(q/mouse-x) (q/mouse-y)]
+          [x y] pt
+          dist (pt-dist {:x x :y y} {:x mx :y my})
+          str (/ (- 1 (/ 50 dist)) -30)]
+      (if (< dist 50)
+        [(* (- x mx) str) (* (- y my) str)]
+        [0 0]))))
 
 (defn graph-move [edges nodes [id node]]
   (if (:static node)
