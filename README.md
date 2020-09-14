@@ -14,7 +14,7 @@ Before you publish your sketch, run `lein do clean, cljsbuild once optimized`. T
 
 ## License
 
-Copyright © 2017 Zachary Romero
+Copyright © 2020 Zachary Romero
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
